@@ -15,6 +15,10 @@ resizing: clean_resizing
 	g++ -std=c++1y -o resizing.o -c resizing.cpp -Wall -O `pkg-config --cflags-only-I opencv`
 	g++ -o resizing resizing.o `pkg-config --cflags --libs opencv`
 
+brightness: clean_brightness
+	g++ -std=c++1y -o brightness.o -c brightness.cpp -Wall -O `pkg-config --cflags-only-I opencv`
+	g++ -o brightness brightness.o `pkg-config --cflags --libs opencv`
+
 clean_stitch:
 	rm -f stitch 
 
@@ -26,3 +30,6 @@ clean_canny:
 
 clean_resizing:
 	rm -f resizing
+
+clean_brightness:
+	rm -f brightness
