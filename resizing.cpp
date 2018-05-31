@@ -43,7 +43,7 @@ void MyCallbackForAxeX(int iX, void *userData)
 
 
 
-int main(int argc, char** argv)
+int resize()
 {
      // Lis l'image 
      src = imread("van_gogh.jpg");
