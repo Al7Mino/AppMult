@@ -46,7 +46,7 @@ void MyCallbackForAxeX(int iX, void *userData)
 int main(int argc, char** argv)
 {
      // Lis l'image 
-     src = imread("mark.jpg");
+     src = imread("van_gogh.jpg");
 
      // Si aucune image est trouvée
     if (src.data == false) 
