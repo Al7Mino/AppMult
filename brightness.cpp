@@ -1,5 +1,6 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
+#include "brightness.hpp"
 
 using namespace cv;
 using namespace std;
@@ -24,7 +25,7 @@ void Luminosite( int, void* )
 
 
 
-int main(int argc, char** argv)
+int brightness()
 {
     //Lire l'image
 
