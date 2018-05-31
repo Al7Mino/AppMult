@@ -14,11 +14,11 @@ int const max_kernel_size = 200;
 void Luminosite( int, void* )
 {
 
-	//Changer la luminositÃ© en fonction de la valeur de la trackbar
+	//Changer la luminosité en fonction de la valeur de la trackbar
 	image.convertTo(imageBright, image.type(), 1, lum_size - 100);
 
-  	//Montrer l'image modifiÃ©e dans la fenÃªtre
-  	imshow( "LuminositÃ©", imageBright);
+  	//Montrer l'image modifiée dans la fenêtre
+  	imshow( "Luminosité", imageBright);
 
 }
 
@@ -39,15 +39,15 @@ int main(int argc, char** argv)
  	}
 
 
-	 // CrÃ©er la fenÃªtre
-	namedWindow("LuminositÃ©", WINDOW_AUTOSIZE);
+	 // Créer la fenêtre
+	namedWindow("Luminosité", WINDOW_AUTOSIZE);
 
-	// CrÃ©er la trackbar 
-  	createTrackbar( "LuminositÃ©", "LuminositÃ©",
+	// Créer la trackbar 
+  	createTrackbar( "Luminosité", "Luminosité",
                   	&lum_size, max_kernel_size,
                   	Luminosite );
 
-	// Valeur par dÃ©faut
+	// Valeur par défaut
 	Luminosite( 0, 0 );
     
     
@@ -55,7 +55,7 @@ int main(int argc, char** argv)
 	waitKey(0);
     	
 
-  	//Fermer les fenÃªtres
+  	//Fermer les fenêtres
 	destroyAllWindows();
 
     return 0;
