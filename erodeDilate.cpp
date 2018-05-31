@@ -1,6 +1,6 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
-
+#include "erodeDilate.hpp"
 using namespace cv;
 using namespace std;
 
@@ -47,7 +47,7 @@ void Dilation( int, void* )
   imshow( "Dilate", imageDilated );
 }
 
-int main(int argc, char** argv)
+int erodeDilate()
 {
     // Read the image file
 	image = imread("van_gogh.jpg", CV_LOAD_IMAGE_COLOR);
