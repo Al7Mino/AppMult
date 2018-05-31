@@ -1,7 +1,9 @@
 main: clean
 	g++ -std=c++1y -o resizing.o -c resizing.cpp -Wall -O `pkg-config --cflags-only-I opencv`
+	g++ -std=c++1y -o erodeDilate.o -c erodeDilate.cpp -Wall -O `pkg-config --cflags-only-I opencv`
+	g++ -std=c++1y -o canny.o -c canny.cpp -Wall -O `pkg-config --cflags-only-I opencv`
 	g++ -std=c++1y -o main.o -c Main.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -o main main.o resizing.o `pkg-config --cflags --libs opencv`
+	g++ -o main main.o resizing.o erodeDilate.o canny.o `pkg-config --cflags --libs opencv`
 
 clean: 
 	rm -f main

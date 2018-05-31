@@ -28,10 +28,10 @@ int main(int argc, char** argv)
 	}
 	switch (select) {
 		case 0:
-			//fct canny
+			canny();
 			break;
 		case 1:
-			//fct erodeDilate
+			erodeDilate();
 			break;
 		case 2:
 			resize();
