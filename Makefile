@@ -1,3 +1,10 @@
+main: clean
+	g++ -std=c++1y -o resizing.o -c resizing.cpp -Wall -O `pkg-config --cflags-only-I opencv`
+	g++ -std=c++1y -o main.o -c Main.cpp -Wall -O `pkg-config --cflags-only-I opencv`
+	g++ -o main main.o resizing.o `pkg-config --cflags --libs opencv`
+
+clean: 
+	rm -f main
 
 stitch: clean_stitch
 	g++ -std=c++1y -o stitch.o -c stitching.cpp -Wall -O `pkg-config --cflags-only-I opencv`
