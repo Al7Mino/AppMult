@@ -4,15 +4,10 @@ using namespace std;
 using namespace cv;
 
 Mat source, destination, detected_edges, source_gray;
-String image_name = "van_gogh.jpg";
 int lowThreshold;
 int const max_lowThreshold = 1000;
 int kernel_size = 3;
 int ratio = 1;
-
-String window_name = "Display window";
-
-
 static void CannyThreshold(int, void*)
 {
     	blur(source_gray, detected_edges, Size(1,1));
@@ -22,12 +17,12 @@ static void CannyThreshold(int, void*)
     	source.copyTo( destination, detected_edges);
     	imshow( window_name, destination );
 }
-int canny()
+int canny(Mat source2,String window_name)
 {
+	source=source2;
 
 
-
-	source = imread(image_name, IMREAD_COLOR);
+	
 
   	if( source.empty() ) { 
 		return -1; 
