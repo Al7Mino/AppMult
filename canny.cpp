@@ -1,5 +1,5 @@
 #include <opencv2/opencv.hpp>
-
+#include "canny.hpp"
 using namespace std;
 using namespace cv;
 
@@ -22,7 +22,7 @@ static void CannyThreshold(int, void*)
     	source.copyTo( destination, detected_edges);
     	imshow( window_name, destination );
 }
-int main(void)
+int canny()
 {
 
 
