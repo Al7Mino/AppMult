@@ -82,7 +82,7 @@ int erode(Mat image, String window)
 
 int dilate(Mat image, String window)
 {
-	
+	erodeDilateWindow = window;
     // Check for failure
     
  	if(!image.data)
