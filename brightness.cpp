@@ -1,13 +1,15 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
-#include "brightness.hpp"
 
 using namespace cv;
 using namespace std;
 
+#include "brightness.hpp"
+
 Mat image_b, imageBright;
 int lum_size = 100;
 int const max_kernel_size = 200;
+string window;
 
 
 
@@ -19,32 +21,18 @@ void Luminosite( int, void* )
 	image_b.convertTo(imageBright, image_b.type(), 1, lum_size - 100);
 
   	//Montrer l'image modifiée dans la fenêtre
-  	imshow( "Luminosité", imageBright);
+  	imshow( window, imageBright);
 
 }
 
 
 
-int brightness()
+int brightness(Mat image, String windowName)
 {
-    //Lire l'image
-
-	image_b = imread("van_gogh.jpg", CV_LOAD_IMAGE_COLOR);
-
-	//Message s'il n'y a pas d'image
-    
- 	if(!image_b.data)
- 	{
-   	printf( " No image data \n " );
-   	return -1;
- 	}
-
-
-	 // Créer la fenêtre
-	namedWindow("Luminosité", WINDOW_AUTOSIZE);
-
+  image_b = image;
+  window = windowName;
 	// Créer la trackbar 
-  	createTrackbar( "Luminosité", "Luminosité",
+  	createTrackbar( "Luminosité", windowName,
                   	&lum_size, max_kernel_size,
                   	Luminosite );
 

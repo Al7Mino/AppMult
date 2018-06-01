@@ -4,6 +4,8 @@
 using namespace cv;
 using namespace std;
 
+#include "resizing.hpp"
+
 Mat src;
 
 void MyCallbackForAxeY(int iY, void *userData)
@@ -43,21 +45,8 @@ void MyCallbackForAxeX(int iX, void *userData)
 
 
 
-int resize()
+int resize(Mat src,String windowName)
 {
-     // Lis l'image 
-     src = imread("van_gogh.jpg");
-
-     // Si aucune image est trouvée
-    if (src.data == false) 
-    { 
-          cout << "Pas d'image trouvée" << endl;
-          return -1; 
-    }
-
-    // Créer la window
-    namedWindow("Resizing", 1);
-
     int iX = 50;
     int iY = 50;
 
@@ -67,7 +56,7 @@ int resize()
     // Créer la trackbar pour redimensionner sur l'axe Y
     createTrackbar("Axe Y", "Resizing", &iX, 100, MyCallbackForAxeY, &iY);
   
-    imshow("Resizing", src);
+    imshow(windowName, src);
 
     waitKey(0);
 

@@ -1,8 +1,10 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
-#include "erodeDilate.hpp"
+
 using namespace cv;
 using namespace std;
+
+#include "erodeDilate.hpp"
 
 Mat image, imageEroded, imageDilated;
 int erosion_elem = 0;
@@ -48,18 +50,12 @@ void Dilation( int, void* )
   imshow( erodeDilateWindow, imageDilated );
 }
 
-int erode(Mat image, String window)
+int erode(Mat src, String window)
 {
 	erodeDilateWindow = window;
-    // Check for failure
-    
- 	if(!image.data)
- 	{
-	   	printf( " No image data \n " );
-	   	return -1;
- 	}
+  image = src;
 	
-	/// Create Erosion Trackbar
+	// Create Erosion Trackbar
   	createTrackbar( "Element:\n 0: Rect \n 1: Cross \n 2: Ellipse", window,
                   	&erosion_elem, max_elem,
                   	Erosion );
@@ -68,7 +64,7 @@ int erode(Mat image, String window)
                  	 &erosion_size, max_kernel_size,
                   	 Erosion  );
 
-	 /// Default start
+	 // Default start
 	Erosion( 0, 0 );
 
    // Wait for any keystroke in the window
@@ -80,9 +76,10 @@ int erode(Mat image, String window)
 	return 0;
 }
 
-int dilate(Mat image, String window)
+int dilate(Mat src, String window)
 {
 	erodeDilateWindow = window;
+  image = src;
     // Check for failure
     
  	if(!image.data)
