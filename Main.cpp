@@ -8,7 +8,7 @@ using namespace cv;
 #include "erodeEffect.hpp"
 #include "dilateEffect.hpp"
 #include "resizingEffect.hpp"
-//#include "stitching.hpp"
+#include "stitchingEffect.hpp"
 #include "brightnessEffect.hpp"
 
 Effect* effect = new CannyEffect;
