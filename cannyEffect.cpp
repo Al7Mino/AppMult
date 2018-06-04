@@ -3,26 +3,25 @@
 using namespace std;
 using namespace cv;
 
-#include "canny.hpp"
+#include "cannyEffect.hpp"
 
-Mat source, destination, detected_edges, source_gray;
-int lowThreshold;
-int const max_lowThreshold = 1000;
-int kernel_size = 3;
-int ratio = 1;
-String window_name;
+// using namespace Canny;
 
-static void CannyThreshold(int, void*)
+static String window_name;
+static Mat source, destination, detected_edges, source_gray;
+static int lowThreshold;
+
+void CannyEffect::CannyThreshold(int, void*)
 {
     	blur(source_gray, detected_edges, Size(1,1));
-	Canny(detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size);
+	    Canny(detected_edges, detected_edges, lowThreshold, lowThreshold*ratio, kernel_size);
     	destination = Scalar::all(0);
 
     	source.copyTo( destination, detected_edges);
     	imshow( window_name, destination );
 }
 
-int canny(Mat source2,String windowName)
+Mat CannyEffect::doEffect(Mat source2,String windowName)
 {
   window_name = windowName;
 	source=source2;
@@ -41,6 +40,6 @@ int canny(Mat source2,String windowName)
   CannyThreshold(0, 0);
 
  	waitKey(0);
- 	return 0;
-
+  lowThreshold = 0;
+  return destination;
 }

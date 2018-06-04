@@ -4,13 +4,13 @@
 using namespace cv;
 using namespace std;
 
-#include "resizing.hpp"
+#include "resizingEffect.hpp"
 
-Mat src;
+Mat src, dst;
+string window;
 
-void MyCallbackForAxeY(int iY, void *userData)
+void ResizeEffect::MyCallbackForAxeY(int iY, void *userData)
 {
-     Mat dst;
      int iX = *( static_cast<int*>(userData) );
 
 
@@ -23,12 +23,11 @@ void MyCallbackForAxeY(int iY, void *userData)
      // Redimensionne en fonction de dX et dY 
      resize(src,dst, dst.size(), dX, dY); 
 
-     imshow("Resizing", dst);
+     imshow(window, dst);
 }
 
-void MyCallbackForAxeX(int iX, void *userData)
+void ResizeEffect::MyCallbackForAxeX(int iX, void *userData)
 {
-     Mat dst;
      int iY = *( static_cast<int*>(userData) );
 
      double dX = (iX / 50.0) + 0.01;
@@ -40,26 +39,28 @@ void MyCallbackForAxeX(int iX, void *userData)
      // Redimensionne en fonction de dX et dY 
      resize(src,dst, dst.size(), dX, dY); 
 
-     imshow("Resizing", dst);
+     imshow(window, dst);
 }
 
 
 
-int resize(Mat src,String windowName)
+Mat ResizeEffect::doEffect(Mat image,String windowName)
 {
     int iX = 50;
     int iY = 50;
+    window = windowName;
+    src = image;
 
     // Créer la trackbar pour redimensionner sur l'axe X
-    createTrackbar("Axe X", "Resizing", &iY, 100, MyCallbackForAxeX, &iX);
+    createTrackbar("Axe X", window, &iY, 100, MyCallbackForAxeX, &iX);
 
     // Créer la trackbar pour redimensionner sur l'axe Y
-    createTrackbar("Axe Y", "Resizing", &iX, 100, MyCallbackForAxeY, &iY);
+    createTrackbar("Axe Y", window, &iX, 100, MyCallbackForAxeY, &iY);
   
-    imshow(windowName, src);
+    
 
     waitKey(0);
 
 
-    return 0;
+    return dst;
 }

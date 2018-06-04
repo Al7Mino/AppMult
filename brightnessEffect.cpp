@@ -4,17 +4,13 @@
 using namespace cv;
 using namespace std;
 
-#include "brightness.hpp"
+#include "brightnessEffect.hpp"
 
-Mat image_b, imageBright;
+static Mat image_b, imageBright;
+static string window;
 int lum_size = 100;
-int const max_kernel_size = 200;
-string window;
 
-
-
-
-void Luminosite( int, void* )
+void BrightnessEffect::Luminosite( int, void* )
 {
 
 	//Changer la luminosité en fonction de la valeur de la trackbar
@@ -25,9 +21,7 @@ void Luminosite( int, void* )
 
 }
 
-
-
-int brightness(Mat image, String windowName)
+Mat BrightnessEffect::doEffect(Mat image, String windowName)
 {
   image_b = image;
   window = windowName;
@@ -46,6 +40,7 @@ int brightness(Mat image, String windowName)
 
   	//Fermer les fenêtres
 	destroyAllWindows();
+  lum_size = 100;
 
-    return 0;
+    return imageBright;
 }

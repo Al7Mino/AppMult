@@ -1,38 +1,5 @@
 main: clean
-	g++ -std=c++1y -o resizing.o -c resizing.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -std=c++1y -o erodeDilate.o -c erodeDilate.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -std=c++1y -o canny.o -c canny.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -std=c++1y -o brightness.o -c brightness.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -std=c++1y -o main.o -c Main.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -o main main.o resizing.o erodeDilate.o canny.o brightness.o `pkg-config --cflags --libs opencv`
+	g++ -std=c++1y -o main *.cpp -Wall -O `pkg-config --cflags --libs opencv`
 
 clean: 
 	rm -f main
-
-stitch: clean_stitch
-	g++ -std=c++1y -o stitch.o -c stitching.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -o stitch stitch.o `pkg-config --cflags --libs opencv`
-
-erodeDilate: clean_erodeDilate
-	g++ -std=c++1y -o erodeDilate.o -c erodeDilate.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -o erodeDilate erodeDilate.o `pkg-config --cflags --libs opencv`
-
-canny: clean_canny
-	g++ -std=c++1y -o canny.o -c canny.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -o canny canny.o `pkg-config --cflags --libs opencv`
-
-resizing: clean_resizing
-	g++ -std=c++1y -o resizing.o -c resizing.cpp -Wall -O `pkg-config --cflags-only-I opencv`
-	g++ -o resizing resizing.o `pkg-config --cflags --libs opencv`
-
-clean_stitch:
-	rm -f stitch 
-
-clean_erodeDilate:
-	rm -f erodeDilate
-
-clean_canny:
-	rm -f canny
-
-clean_resizing:
-	rm -f resizing
