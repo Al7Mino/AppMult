@@ -1,12 +1,13 @@
 #ifndef STITCHINGEFFECT_HPP
 #define STITCHINGEFFECT_HPP
 #include "effect.hpp"
-class StitchingEffect: virtual public Effect {
+class StitchingEffect {
 private:
-	
+	void printUsage();
 public:
 	StitchingEffect(){}
 	~StitchingEffect(){}
-	Mat doEffect(Mat source,String windowName);
+	static Mat doStitch(int argc, char** argv, string windowName);
+	int parseCmdArgs(int argc, char** argv);
 };
 #endif

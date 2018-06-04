@@ -8,7 +8,7 @@ using namespace cv;
 #include "erodeEffect.hpp"
 #include "dilateEffect.hpp"
 #include "resizingEffect.hpp"
-//#include "stitchingEffect.hpp"
+#include "stitchingEffect.hpp"
 #include "brightnessEffect.hpp"
 
 Effect* effect = new CannyEffect;
@@ -44,7 +44,7 @@ int main(int argc, char** argv)
 	namedWindow(windowName, WINDOW_AUTOSIZE);
 	imshow( windowName, image );
 
-	string tab[] = {"canny", "erode", "resizing", "brightness", "dilate", "exit", "reset"};
+	string tab[] = {"stitch", "canny", "erode", "resizing", "brightness", "dilate", "exit", "reset"};
 	string functionName;
 
 	cout << "Welcome on Pimp my Gimp software !  Please choose among the following available effects : canny, erode, dilate, resizing, brightness \n";
@@ -54,7 +54,7 @@ int main(int argc, char** argv)
 	int select = -1;
 	while(true){
 		while(select==-1) {
-			for(int i=0; i<7; i++) {
+			for(int i=0; i<8; i++) {
 				if(functionName==tab[i]) {
 					select = i;
 				}
@@ -68,40 +68,45 @@ int main(int argc, char** argv)
 		switch (select) {
 			case 0:
 			{
-				effect = new CannyEffect;
-				imageModified = effect->doEffect(imageModified, windowName);
+				imageModified = StitchingEffect::doStitch(argc, argv, windowName);
 				break;
 			}
 			case 1:
 			{
-				effect = new ErodeEffect;
+				effect = new CannyEffect;
 				imageModified = effect->doEffect(imageModified, windowName);
 				break;
 			}
 			case 2:
 			{
-				effect = new ResizeEffect;
+				effect = new ErodeEffect;
 				imageModified = effect->doEffect(imageModified, windowName);
 				break;
 			}
 			case 3:
 			{
-				effect = new BrightnessEffect;
+				effect = new ResizeEffect;
 				imageModified = effect->doEffect(imageModified, windowName);
 				break;
 			}
 			case 4:
 			{
-				effect = new DilateEffect;
+				effect = new BrightnessEffect;
 				imageModified = effect->doEffect(imageModified, windowName);
 				break;
 			}
 			case 5:
 			{
+				effect = new DilateEffect;
+				imageModified = effect->doEffect(imageModified, windowName);
+				break;
+			}
+			case 6:
+			{
 				cout << "See you later ! :)" << endl;
 				return 0;
 			}
-			case 6:
+			case 7:
 			{
 				cout << "The original image has been reloaded" << endl;
 				imageModified = image;
