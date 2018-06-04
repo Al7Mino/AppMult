@@ -8,27 +8,47 @@ using namespace cv;
 #include "erodeEffect.hpp"
 #include "dilateEffect.hpp"
 #include "resizingEffect.hpp"
-#include "stitchingEffect.hpp"
+//#include "stitchingEffect.hpp"
 #include "brightnessEffect.hpp"
 
 Effect* effect = new CannyEffect;
+Mat image, imageModified;
 
 int main(int argc, char** argv)
 {
-	Mat image = imread("van_gogh.jpg", CV_LOAD_IMAGE_COLOR);
-	Mat imageModified = image;
-	if(!image.data) {
-	   	printf( " No image data \n " );
-	   	return -1;
- 	}
+	
+	while(!image.data)
+	{
+	string requestedImage;
+	cout << "Welcome! Please write the image you wish to modify, or write 'default' to load a preset image\n";
+	cin >> requestedImage;
+		if(requestedImage == "default")
+		{
+			image = imread("van_gogh.jpg", CV_LOAD_IMAGE_COLOR);
+		}
+		else
+		{
+			image = imread(requestedImage, CV_LOAD_IMAGE_COLOR);
+		}
+
+	imageModified = image;
+	
+
+		if(!image.data)
+		{
+	   		printf( " Sorry we couldn't load the image, please try again \n " );
+ 		}
+	}
+	
 	String windowName = "Pimp my Gimp";
 	namedWindow(windowName, WINDOW_AUTOSIZE);
+	imshow( windowName, image );
 
 	string tab[] = {"canny", "erode", "resizing", "brightness", "dilate", "exit", "reset"};
 	string functionName;
 
-	cout << "Bienvenue sur le super logiciel Pimp my Gimp !  Veuillez choisir parmi les fonctions suivantes : canny, erode, dilate, resizing, brightness \n";
-	cout << "Si vous voulez quitter le logiciel : écrivez 'exit'\n";
+	cout << "Welcome on Pimp my Gimp software !  Please choose among the following available effects : canny, erode, dilate, resizing, brightness \n";
+	cout << "If you wish to leave the software : write 'exit'\n";
 	cin >> functionName;
 	
 	int select = -1;
@@ -40,7 +60,7 @@ int main(int argc, char** argv)
 				}
 			}
 			if(select==-1){
-				cout << "Fonction non existante. Veuillez choisir parmi les fonctions suivantes : canny, erode, dilate, resizing, brightness \n";
+				cout << "This effect does not exist. Please choose among the following ones : canny, erode, dilate, resizing, brightness \n";
 				cin >> functionName;
 			}
 		}
@@ -78,12 +98,12 @@ int main(int argc, char** argv)
 			}
 			case 5:
 			{
-				cout << "A bientôt ! :)" << endl;
+				cout << "See you later ! :)" << endl;
 				return 0;
 			}
 			case 6:
 			{
-				cout << "L'image initiale a été rechargée" << endl;
+				cout << "The original image has been reloaded" << endl;
 				imageModified = image;
 			}
 			default:
@@ -95,8 +115,8 @@ int main(int argc, char** argv)
 		destroyAllWindows();
 		namedWindow(windowName, WINDOW_AUTOSIZE);
 		cout << "Choose another function : canny, erode, dilate, resizing, brightness \n";
-		cout << "Pour récupérer l'image initiale : écrire 'reset' \n";
-		cout << "Si vous voulez quitter le logiciel : écrivez 'exit'\n";
+		cout << "To get the original image back : write 'reset' \n";
+		cout << "If you wish to leave the software : write 'exit'\n";
 		cin >> functionName;
 	}
     return 0;
