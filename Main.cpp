@@ -13,15 +13,17 @@ using namespace cv;
 
 Effect* effect = new CannyEffect;
 Mat image, imageModified;
+int nbImgs;
+vector<Mat> imgs;
 
 int main(int argc, char** argv)
 {
 	
 	while(!image.data)
 	{
-	string requestedImage;
-	cout << "Welcome! Please write the image you wish to modify, or write 'default' to load a preset image\n";
-	cin >> requestedImage;
+		string requestedImage;
+		cout << "Welcome! Please write the image you wish to modify, or write 'default' to load a preset image\n";
+		cin >> requestedImage;
 		if(requestedImage == "default")
 		{
 			image = imread("van_gogh.jpg", CV_LOAD_IMAGE_COLOR);
@@ -31,7 +33,7 @@ int main(int argc, char** argv)
 			image = imread(requestedImage, CV_LOAD_IMAGE_COLOR);
 		}
 
-	imageModified = image;
+		imageModified = image;
 	
 
 		if(!image.data)
@@ -42,12 +44,12 @@ int main(int argc, char** argv)
 	
 	String windowName = "Pimp my Gimp";
 	namedWindow(windowName, WINDOW_AUTOSIZE);
-	imshow( windowName, image );
+	imshow( windowName, image);
 
 	string tab[] = {"stitch", "canny", "erode", "resizing", "brightness", "dilate", "exit", "reset"};
 	string functionName;
 
-	cout << "Welcome on Pimp my Gimp software !  Please choose among the following available effects : canny, erode, dilate, resizing, brightness \n";
+	cout << "Welcome on Pimp my Gimp software !  Please choose among the following available effects : stitch, canny, erode, dilate, resizing, brightness \n";
 	cout << "If you wish to leave the software : write 'exit'\n";
 	cin >> functionName;
 	
@@ -60,7 +62,7 @@ int main(int argc, char** argv)
 				}
 			}
 			if(select==-1){
-				cout << "This effect does not exist. Please choose among the following ones : canny, erode, dilate, resizing, brightness \n";
+				cout << "This effect does not exist. Please choose among the following ones : stitch, canny, erode, dilate, resizing, brightness \n";
 				cin >> functionName;
 			}
 		}
@@ -68,7 +70,20 @@ int main(int argc, char** argv)
 		switch (select) {
 			case 0:
 			{
-				imageModified = StitchingEffect::doStitch(argc, argv, windowName);
+				cout << "How many pictures do you want to stitch ?" << endl;
+				cin >> nbImgs;
+				for (int i = 0; i < nbImgs; ++i)
+				{
+					Mat img;
+					while(!img.data) {
+						string nameImg;
+						cout << "Please choose the picture n°" << i+1 << endl;
+						cin >> nameImg;
+						img = imread(nameImg, CV_LOAD_IMAGE_COLOR);
+					}
+					imgs.push_back(img);
+				}
+				imageModified = StitchingEffect::doStitch(imgs, windowName);
 				break;
 			}
 			case 1:
@@ -119,7 +134,7 @@ int main(int argc, char** argv)
 		select =-1;
 		destroyAllWindows();
 		namedWindow(windowName, WINDOW_AUTOSIZE);
-		cout << "Choose another function : canny, erode, dilate, resizing, brightness \n";
+		cout << "Choose another function : stitch, canny, erode, dilate, resizing, brightness \n";
 		cout << "To get the original image back : write 'reset' \n";
 		cout << "If you wish to leave the software : write 'exit'\n";
 		cin >> functionName;

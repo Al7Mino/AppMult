@@ -26,11 +26,6 @@ Mat CannyEffect::doEffect(Mat source2,String windowName)
   window_name = windowName;
 	source=source2;
 
-  if( source.empty() ) { 
-		return -1; 
-	}
-
-
 	destination.create(source.size(), source.type());
 
   cvtColor( source, source_gray, COLOR_BGR2GRAY );
