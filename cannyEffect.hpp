@@ -12,5 +12,8 @@ public:
 	CannyEffect(){}
 	~CannyEffect(){}
 	Mat doEffect(Mat source,String windowName);
+	static int doEffectVideo(Mat source2,String windowName);
+	static Mat ReapplyEffect(Mat source2,String windowName, int value);
+
 };
 #endif
