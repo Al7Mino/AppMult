@@ -62,7 +62,6 @@ Mat CannyEffect::ReapplyEffect(Mat source2,String windowName, int value)
 
   CannyThreshold(value, 0);
 
-  waitKey(0);
   lowThreshold = 0;
   return destination;
 }

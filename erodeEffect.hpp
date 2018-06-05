@@ -11,5 +11,7 @@ public:
 	ErodeEffect(){}
 	~ErodeEffect(){}
 	Mat doEffect(Mat source,String windowName);
+	static vector<int> doEffectVideo(Mat source,String windowName);
+	static Mat ReapplyEffect(Mat source,String windowName, vector<int> values);
 };
 #endif

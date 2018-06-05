@@ -18,6 +18,9 @@ vector<Mat> imgs;
 string path;
 string type;
 VideoCapture cap;
+int value;
+vector<int> values;
+string requestedVideo;
 
 int main(int argc, char** argv)
 {
@@ -51,12 +54,12 @@ int main(int argc, char** argv)
 	else if(type == "video" || type == "Video") {
 		while(!image.data)
 		{
-			string requestedVideo;
 			cout << "Welcome! Please write the video name you wish to modify, or write 'default' to load a preset video\n";
 			cin >> requestedVideo;
 			if(requestedVideo == "default")
 			{
-				VideoCapture cap1("chaplin.mp4");
+				requestedVideo = "chaplin.mp4";
+				VideoCapture cap1(requestedVideo);
 				cap=cap1;
 			}
 			else
@@ -181,7 +184,6 @@ int main(int argc, char** argv)
 				}
 				case 1:
 				{
-					int value;
 					value = CannyEffect::doEffectVideo(imageModified, windowName);
 					while (true)
 				    {
@@ -190,33 +192,75 @@ int main(int argc, char** argv)
 
 				        if(!frame.data)
 				            break;
-				        frame = CannyEffect::ReapplyEffect(imageModified, windowName, value);
+				        frame = CannyEffect::ReapplyEffect(frame, windowName, value);
 				        imshow(windowName, frame);
+				        waitKey(10);
 				    }
+				    break;
 				}
 				case 2:
 				{
-					effect = new ErodeEffect;
-					imageModified = effect->doEffect(imageModified, windowName);
-					break;
+					values = ErodeEffect::doEffectVideo(imageModified, windowName);
+					while (true)
+				    {
+				        Mat frame;
+				        cap >> frame;
+
+				        if(!frame.data)
+				            break;
+				        frame = ErodeEffect::ReapplyEffect(frame, windowName, values);
+				        imshow(windowName, frame);
+				        waitKey(10);
+				    }
+				    break;
 				}
 				case 3:
 				{
-					effect = new ResizeEffect;
-					imageModified = effect->doEffect(imageModified, windowName);
-					break;
+					values = ResizeEffect::doEffectVideo(imageModified, windowName);
+					while (true)
+				    {
+				        Mat frame;
+				        cap >> frame;
+
+				        if(!frame.data)
+				            break;
+				        frame = ResizeEffect::ReapplyEffect(frame, windowName, values);
+				        imshow(windowName, frame);
+				        waitKey(10);
+				    }
+				    break;
 				}
 				case 4:
 				{
-					effect = new BrightnessEffect;
-					imageModified = effect->doEffect(imageModified, windowName);
-					break;
+					value = BrightnessEffect::doEffectVideo(imageModified, windowName);
+					while (true)
+				    {
+				        Mat frame;
+				        cap >> frame;
+
+				        if(!frame.data)
+				            break;
+				        frame = BrightnessEffect::ReapplyEffect(frame, windowName, value);
+				        imshow(windowName, frame);
+				        waitKey(10);
+				    }
+				    break;
 				}
 				case 5:
 				{
-					effect = new DilateEffect;
-					imageModified = effect->doEffect(imageModified, windowName);
-					break;
+					values = DilateEffect::doEffectVideo(imageModified, windowName);
+					while (true)
+				    {
+				        Mat frame;
+				        cap >> frame;
+
+				        if(!frame.data)
+				            break;
+				        frame = DilateEffect::ReapplyEffect(frame, windowName, values);
+				        imshow(windowName, frame);
+				        waitKey(10);
+				    }
+				    break;
 				}
 				case 6:
 				{
@@ -239,6 +283,8 @@ int main(int argc, char** argv)
 					break;
 				}
 			}
+			VideoCapture cap1(requestedVideo);
+			cap = cap1;
 		}
 		select =-1;
 		destroyAllWindows();

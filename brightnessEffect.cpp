@@ -33,14 +33,41 @@ Mat BrightnessEffect::doEffect(Mat image, String windowName)
 	// Valeur par défaut
 	Luminosite( 0, 0 );
     
-    
      // Attendre une commande
 	waitKey(0);
-    	
 
   	//Fermer les fenêtres
 	destroyAllWindows();
   lum_size = 100;
 
     return imageBright;
+}
+
+int BrightnessEffect::doEffectVideo(Mat image,String windowName)
+{
+  image_b = image;
+  window = windowName;
+  // Créer la trackbar 
+    createTrackbar( "Luminosité", windowName,
+                    &lum_size, max_kernel_size,
+                    Luminosite );
+
+  // Valeur par défaut
+  Luminosite( 0, 0 );
+    
+  // Attendre une commande
+  waitKey(0);
+
+  return lum_size;
+}
+
+Mat BrightnessEffect::ReapplyEffect(Mat image,String windowName, int value)
+{
+  image_b = image;
+  window = windowName;
+  
+  Luminosite(value, 0);
+
+  lum_size = 100;
+  return imageBright;
 }
