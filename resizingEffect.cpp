@@ -84,6 +84,9 @@ vector<int> ResizeEffect::doEffectVideo(Mat image,String windowName)
 
     waitKey(0);
 
+    iX = getTrackbarPos("Axe X", window);
+    iY = getTrackbarPos("Axe Y", window);
+
     vector<int> v;
     v.push_back(iX);
     v.push_back(iY);
@@ -96,14 +99,14 @@ Mat ResizeEffect::ReapplyEffect(Mat image,String windowName, vector<int> values)
     window = windowName;
     src = image;
 
-    iX = values.at(0);
-    iY = values.at(1);
+    int vX = values.at(0);
+    int vY = values.at(1);
 
-    double dX = (iX / 50.0) + 0.01;
-    double dY = (iY / 50.0) + 0.01;
+    double dX = (vX / 50.0) + 0.01;
+    double dY = (vY / 50.0) + 0.01;
 
     Mat temp;
-    resize(src,temp, temp.size(), dX, dY);
+    resize(src,temp, Size(), dX, dY);
     dst = temp;
 
     iX = 50;

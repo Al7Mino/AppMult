@@ -66,7 +66,7 @@ Mat BrightnessEffect::ReapplyEffect(Mat image,String windowName, int value)
   image_b = image;
   window = windowName;
   
-  Luminosite(value, 0);
+  image_b.convertTo(imageBright, image_b.type(), 1, value - 100);
 
   lum_size = 100;
   return imageBright;
